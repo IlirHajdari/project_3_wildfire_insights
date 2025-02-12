@@ -20,7 +20,7 @@ To reverse these trends requires understanding underlying causes, and how causal
 ## Implementation
 
 ## Data
-* National Interagency Fire Occurrence Sixth Edition 1992-2020 (Feature Layer), https://catalog.data.gov/dataset/national-interagency-fire-occurrence-sixth-edition-1992-2020-feature-layer
+National Interagency Fire Occurrence Sixth Edition 1992-2020 (Feature Layer), https://catalog.data.gov/dataset/national-interagency-fire-occurrence-sixth-edition-1992-2020-feature-layer
 
 
 [^1]: The Latest Data Confirms: Forest Fires Are Getting Worse, World Resources Institute, August 13, 2024, https://www.wri.org/insights/global-trends-forest-fires
