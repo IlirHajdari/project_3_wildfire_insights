@@ -23,6 +23,22 @@ def search_wildfire_data():
     county = request.args.get('county')
     fire_name = request.args.get('fire_name')
 
+    # filters
+    for fire in wildfire_data:
+        if state and fire.get("State") != state.upper():
+            continue
+        if year and fire.get("Year") != int(year):
+            continue
+        if fire_size and fire.get("Fire Size in Acres", 0) < float(fire_size):
+            continue
+        if cause and fire.get("Cause Class") != cause.capitalize():
+            continue
+        if county and fire.get("County Name") != county.title():
+            continue
+        if fire_name and fire_name.lower() not in fire.get("Fire Name", "").lower():
+            continue
+        query.append(fire)
+
     
 
 
