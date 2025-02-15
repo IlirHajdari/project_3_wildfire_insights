@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+#yearDropdown {
+    font-size: 16px;
+    padding: 8px;
+    margin: 10px;
+}
+
+canvas {
+    width: 80%;
+    max-width: 700px;
+    margin: 20px auto;
+}
+
+.ytd-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 20px;
+}
+
+.ytd-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 220px;
+}
+
+.ytd-card h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.ytd-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d9534f;
+    margin-top: 10px;
+}
