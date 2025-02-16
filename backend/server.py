@@ -12,18 +12,16 @@ JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire
 def load_wildfire_data():
     try:
         with open(JSON_FILE_PATH, "r") as file:
-            return json.load(file)  
-    except MemoryError:
-        return []  # Return empty list if file is too large
+            #return json.load(file) 
+            for line in file:
+                yield json.loads(line.strip()) 
+    except (MemoryError, FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Error loading data: {e}")
+        yield from []  # Return empty if error
 
 
 @app.route('/search', methods=['GET'])
 def search_wildfire_data():
-    #users can filter wildfire data dynamically based on any column
-    
-    wildfire_data = load_wildfire_data()  
-    if not wildfire_data:
-        return jsonify({"error": "Data could not be loaded due to memory limits"}), 500
 
     query = []
 
@@ -36,7 +34,7 @@ def search_wildfire_data():
     fire_name = request.args.get('fire_name')
 
     # filters data based on URL params
-    for fire in wildfire_data:
+    for fire in load_wildfire_data:
         if state and fire.get("State") != state.upper():
             continue
         if year and fire.get("Year") != int(year):
@@ -69,14 +67,19 @@ def search_wildfire_data():
 @app.route('/years', methods=['GET'])
 def get_years():
     #Get all unique years
+
+    years = set()
+    for fire in load_wildfire_data():
+        if "Year" in fire:
+            years.add(fire["Year"])
     
-    wildfire_data = load_wildfire_data()
-    if not wildfire_data:
-        return jsonify({"error": "Data could not be loaded due to memory limits"}), 500
+    return jsonify(sorted(years))
     
-    years = sorted(set(fire["Year"] for fire in wildfire_data if "Year" in fire))
-    return jsonify({"available_years": years})
+   
+    
+ 
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
