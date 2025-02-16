@@ -8,8 +8,15 @@ app = Flask(__name__)
 JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire_data.json")
 
 # Load JSON file once into memory
-with open(JSON_FILE_PATH, "r") as file:
-    wildfire_data = json.load(file)
+#with open(JSON_FILE_PATH, "r") as file:
+#    wildfire_data = json.load(file)
+
+# streaming JSON instead of loading it since render free only allows 512mb of memory...laaaaammmmeeee!!!!
+def wildfire_data():
+    with open(JSON_FILE_PATH, "r") as file:
+        for line in file:
+            yield json.loads(line.strip())
+
 
 @app.route('/search', methods=['GET'])
 def search_wildfire_data():
