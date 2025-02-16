@@ -1,21 +1,22 @@
 import os
-from flask import Flask, jsonify, request # type: ignore
+from flask import Flask, jsonify, request  # type: ignore
 import json
 
 app = Flask(__name__)
 
+# Locating JSON file
 JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire_data.json")
 
+# Load JSON file once into memory
 with open(JSON_FILE_PATH, "r") as file:
-    #this will only load json file if not too big
     wildfire_data = json.load(file)
 
 @app.route('/search', methods=['GET'])
 def search_wildfire_data():
-    #filter data based on columns
+    
     query = []
 
-    # filters from url params
+    # Get filters from URL params
     state = request.args.get('state')
     year = request.args.get('year')
     fire_size = request.args.get('fire_size')
@@ -23,7 +24,7 @@ def search_wildfire_data():
     county = request.args.get('county')
     fire_name = request.args.get('fire_name')
 
-    # filters
+    # Apply filters
     for fire in wildfire_data:
         if state and fire.get("State") != state.upper():
             continue
@@ -34,21 +35,31 @@ def search_wildfire_data():
         if cause and fire.get("Cause Class") != cause.capitalize():
             continue
         if county and fire.get("County Name") != county.title():
-            continue 
-        query.append(fire)
+            continue
+        if fire_name and fire_name.lower() not in fire.get("Fire Name", "").lower():
+            continue
+        query.append(fire)  
 
-        page = int(request.args.get('page', 1))
-        limit = int(request.args.get('limit', 100))
-        total_records = len(query)
-        start_index = (page - 1) * limit
-        end_index = start_index + limit
+    # Pagination (default: 1st page, 100 records per page)
+    page = int(request.args.get('page', 1))
+    limit = int(request.args.get('limit', 100))
+    total_records = len(query)
+    start_index = (page - 1) * limit
+    end_index = start_index + limit
 
-        return jsonify({
-            "page": page,
-            "limit": limit,
-            "total_records": total_records,
-            "data": query[start_index:end_index]
-        })
+    
+    return jsonify({
+        "page": page,
+        "limit": limit,
+        "total_records": total_records,
+        "data": query[start_index:end_index] if query else []
+    })
+
+@app.route('/years', methods=['GET'])
+def get_years():
+    
+    years = sorted(set(fire["Year"] for fire in wildfire_data))
+    return jsonify({"available_years": years})
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
