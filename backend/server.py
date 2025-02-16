@@ -34,14 +34,21 @@ def search_wildfire_data():
         if cause and fire.get("Cause Class") != cause.capitalize():
             continue
         if county and fire.get("County Name") != county.title():
-            continue
-        if fire_name and fire_name.lower() not in fire.get("Fire Name", "").lower():
-            continue
+            continue 
         query.append(fire)
 
-    
+        page = int(request.args.get('page', 1))
+        limit = int(request.args.get('limit', 100))
+        total_records = len(query)
+        start_index = (page - 1) * limit
+        end_index = start_index + limit
 
-
+        return jsonify({
+            "page": page,
+            "limit": limit,
+            "total_records": total_records,
+            "data": query[start_index:end_index]
+        })
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)
