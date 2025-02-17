@@ -2,5 +2,9 @@ Flask
 Flask-Cors
 gunicorn
 pymongo
+<<<<<<< HEAD
 pandas
 requests
+=======
+pandas
+>>>>>>> d0906ce64b84f520dd8aca974f48f3e84c784f28
