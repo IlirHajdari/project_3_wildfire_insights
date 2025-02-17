@@ -1,18 +1,35 @@
 import os
 from flask import Flask, jsonify, request  # type: ignore
 import json
+import requests
 
 app = Flask(__name__)
 
 # Locating JSON file
-JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire_data.json")
+#JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire_data.json")
+
+# Trying out S3 bucket instead of local JSON file path
+AWS_S3_JSON_URL = "https://wildfiredatabin.s3.us-east-1.amazonaws.com/wildfire_data.json"
 
 # Load JSON file once into memory
-with open(JSON_FILE_PATH, "r") as file:
-    wildfire_data = json.load(file)
+#with open(AWS_S3_JSON_URL, "r") as file:
+    #wildfire_data = json.load(file)
+
+# funciton to fetch data from s3
+def fetch_wildfire_data():
+    try:
+        response = requests.get(AWS_S3_JSON_URL)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching data: {e}")
+        return []
 
 @app.route('/search', methods=['GET'])
 def search_wildfire_data():
+    wildfire_data = fetch_wildfire_data()
+    if not wildfire_data:
+        return jsonify({"error": "Failed to fetch json data from s3 bucket..."}), 500 
     
     query = []
 
