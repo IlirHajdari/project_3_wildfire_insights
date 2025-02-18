@@ -92,12 +92,28 @@ function updateWildfireLayer(selectedCause, selectedYear, selectedSize, selected
 
     filteredData.forEach(f => {
         let latlng = [f["Latitude"], f["Longitude"]];
-        L.circleMarker(latlng, {
+        let marker = L.circleMarker(latlng, {
             radius: getSize(f["Fire Size in Acres"]),
             fillColor: getColor(f["Cause Class"]),
             color: "black",
             weight: 0.5,
             fillOpacity: 0.8
         }).addTo(wildfireLayer);
+
+        // Tooltip with Reporting Group at the top
+        let tooltipContent = `
+            <b>${f["Reporting Group"] || "Unknown Group"}</b><br>
+            <hr>
+            <b>Location:</b> ${f["Location"] || "Unknown"}<br>
+            <b>Year:</b> ${f["Year"]}<br>
+            <b>Fire Size:</b> ${f["Fire Size in Acres"]} acres<br>
+            <b>Cause:</b> ${f["Cause Class"] || "Unknown"}
+        `;
+
+        marker.bindTooltip(tooltipContent, {
+            permanent: false,   
+            direction: "top",
+            offset: [0, -5]
+        });
     });
 }
