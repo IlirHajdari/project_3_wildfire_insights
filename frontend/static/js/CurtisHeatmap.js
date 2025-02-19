@@ -15,16 +15,26 @@ filters.forEach((filterId) => {
 });
 
 // Load wildfire data from API
-d3.json("http://127.0.0.1:5000/search").then((response) => {
+d3.json("USGS2014.json").then((response) => {
   console.log("Raw API Response:", response);
 
-  // Ensure data exists
+  /* // Ensure data exists
   if (!response.data || response.data.length === 0) {
     console.warn("No wildfire data found!");
     return;
+  } */
+
+    // Update error checking to match your data structure
+  if (!Array.isArray(response)) {
+    console.warn("Response is not an array!");
+    return;
   }
 
-  let wildfireData = response.data; // Extract actual data array
+  if (response.length === 0) {
+    console.warn("No wildfire data found - empty array!");
+    return;
+  }
+  let wildfireData = response;//.data; // Extract actual data array
 
   let years = [...new Set(wildfireData.map((d) => d.Year))].sort((a, b) => a - b);
   let states = [...new Set(wildfireData.map((d) => d.State))].sort();
