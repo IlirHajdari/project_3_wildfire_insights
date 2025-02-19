@@ -1,8 +1,10 @@
 import os
 from flask import Flask, jsonify, request  # type: ignore
+from flask_cors import CORS  # type: ignore
 import json
 
 app = Flask(__name__)
+CORS(app)
 
 # Load locally extracted JSON file
 JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "USGS2014.json")
