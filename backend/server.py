@@ -4,64 +4,50 @@ import json
 
 app = Flask(__name__)
 
-# Locating JSON file
-JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "wildfire_data.json")
+# Load locally extracted JSON file
+JSON_FILE_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "USGS2014.json")
 
-# Load JSON file once into memory
+# Load JSON once into memory
+try:
+    with open(JSON_FILE_PATH, "r") as file:
+        wildfire_data = json.load(file)
+    print("Successfully loaded USGS2014.json")
+except Exception as e:
+    print(f"Error loading USGS2014.json: {e}")
+    wildfire_data = []
+
 with open(JSON_FILE_PATH, "r") as file:
     wildfire_data = json.load(file)
+print("Successfully loaded USGS2014.json")
+print(f"First 5 records: {wildfire_data[:5]}") 
 
+# Route to return wildfire data with pagination
 @app.route('/search', methods=['GET'])
 def search_wildfire_data():
+    print(f"Total records loaded: {len(wildfire_data)}")  
     
-    query = []
-
-    # Get filters from URL params
-    state = request.args.get('state')
-    year = request.args.get('year')
-    fire_size = request.args.get('fire_size')
-    cause = request.args.get('cause')
-    county = request.args.get('county')
-    fire_name = request.args.get('fire_name')
-
-    # Apply filters
-    for fire in wildfire_data:
-        if state and fire.get("State") != state.upper():
-            continue
-        if year and fire.get("Year") != int(year):
-            continue
-        if fire_size and fire.get("Fire Size in Acres", 0) < float(fire_size):
-            continue
-        if cause and fire.get("Cause Class") != cause.capitalize():
-            continue
-        if county and fire.get("County Name") != county.title():
-            continue
-        if fire_name and fire_name.lower() not in fire.get("Fire Name", "").lower():
-            continue
-        query.append(fire)  
-
-    # Pagination (default: 1st page, 100 records per page)
     page = int(request.args.get('page', 1))
-    limit = int(request.args.get('limit', 100))
-    total_records = len(query)
+    limit = int(request.args.get('limit', 500))
+    
+    if not wildfire_data:  
+        return jsonify({"error": "No data found", "total_records": 0, "data": []})
+
+    total_records = len(wildfire_data)
     start_index = (page - 1) * limit
     end_index = start_index + limit
 
-    
     return jsonify({
         "page": page,
         "limit": limit,
         "total_records": total_records,
-        "data": query[start_index:end_index] if query else []
+        "data": wildfire_data[start_index:end_index]
     })
-
+# Get available years
 @app.route('/years', methods=['GET'])
 def get_years():
-    
-    years = sorted(set(fire["Year"] for fire in wildfire_data))
+    years = sorted(set(fire["Year"] for fire in wildfire_data if "Year" in fire))
     return jsonify({"available_years": years})
 
+# Run Flask Server Locally
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
-
-    # comment to trigger GIT detection
+    app.run(host="127.0.0.1", port=5000, debug=True)
