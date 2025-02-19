@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+#yearDropdown {
+  font-size: 16px;
+  padding: 8px;
+  margin: 10px;
+}
+
+canvas {
+  width: 80%;
+  max-width: 700px;
+  margin: 20px auto;
+}
