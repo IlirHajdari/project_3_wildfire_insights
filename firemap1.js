@@ -1,31 +1,31 @@
 // Initialize the map
 let myMap = L.map("map").setView([37.8, -96.9], 6);
 
-// Add a base layer (OpenStreetMap)
+// Define base map layer
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(myMap);
 
-// Layer group for wildfires
+// Layer group for wildfire data
 let wildfireLayer = L.layerGroup().addTo(myMap);
 
-// Function to determine marker size based on fire size (acres)
+// Function to determine size of marker based on fire size (acres)
 function getSize(acres) {
-    return acres ? Math.sqrt(acres) * 1.2 : 2;  // Adjusted for better visibility
+    return acres ? Math.sqrt(acres) * 1.2 : 2;
 }
 
-// Function to determine marker color based on cause class
+// Function to determine color of marker based on cause
 function getColor(cause) {
     return cause === "Natural" ? "green" : "red";
 }
 
 // Global variable for wildfire data
-let wildfireData;
+let wildfireData = [];
 
 // Load JSON wildfire data
 d3.json("USGS2014.json").then(function(data) {
-    console.log(data);
-    wildfireData = data;  // Updated to use the entire data array
+    console.log("Wildfire Data:", data);
+    wildfireData = data || [];  
     populateFilters(data);
     updateWildfireLayer("all", "all", "all", "all", 1);
 });
@@ -38,6 +38,7 @@ function populateFilters(data) {
     let yearFilter = document.getElementById("yearFilter");
     let stateFilter = document.getElementById("stateFilter");
 
+    // Populate year dropdown
     years.forEach(year => {
         let option = document.createElement("option");
         option.value = year;
@@ -45,6 +46,7 @@ function populateFilters(data) {
         yearFilter.appendChild(option);
     });
 
+    // Populate state dropdown
     states.forEach(state => {
         let option = document.createElement("option");
         option.value = state;
@@ -74,7 +76,7 @@ function updateFilters() {
 
 // Function to update wildfire markers based on filters
 function updateWildfireLayer(selectedCause, selectedYear, selectedSize, selectedState, selectedDay) {
-    wildfireLayer.clearLayers();
+    wildfireLayer.clearLayers(); 
 
     let filteredData = wildfireData.filter(f => {
         let causeMatch = selectedCause === "all" || f["Cause Class"] === selectedCause;
