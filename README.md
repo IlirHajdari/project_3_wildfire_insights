@@ -1,59 +1,125 @@
-# U.S. Wildfires
+# U.S. Wildfires Data Visualization
 
-View live: — LINK —
+## **Description**
 
-## Background
+This project provides an **interactive visualization** of U.S. wildfire data using a **Flask API and Leaflet.js**. Users can query wildfire data and visualize fire occurrences on an interactive heatmap.
 
-Today, forest fires result in twice as much tree cover loss globally as two decades ago, and have accounted for 42% of tree cover loss in North America, 62% in Russia, China, and South Asia, and 39% in Oceana between 2001 and 2023.[^1] [^2]
+---
 
-<p align="center">
-<img src="https://github.com/user-attachments/assets/bd335172-6448-4053-8833-ff83a0ff5cc1" height="500">
-</p>
+## **Summary**
 
-Focusing on the United States, prior research finds that over the 1992 to 2012 period, while climate change and lightning were contributing factors, "human-started wildfires accounted for 84% of all wildfires, tripled the length of the fire season, dominated an area seven times greater than that affected by lightning fires, and were responsible for nearly half of all area burned," leading to a call for policy efforts to reduce the role of human-driven fires.[^3]
+### **🔥 Part 1: Flask API for Wildfire Data**
 
-<p align="center">
-<img src="https://github.com/user-attachments/assets/c028519a-f4ff-4f8d-bc42-fdd73326e995" height="380" width="800">
-</p>
+The backend serves wildfire data stored in a **local JSON file** (`USGS2014.json`). The API allows filtering wildfire records by:
 
-Loss data for the extended 1992 to 2024 period, however, indicate that of the $138.6 billion in damages and 495 deaths associated with 21 billion-dollar wildfire events over the extended period, approximately three-quarters of these effects ($108.6 billion in damages and 369 deaths) have been observed in the most recent 10 years, suggesting that the negative impacts of human-induced wildfires have been accelerating. [^4] [^5]
+- **State**
+- **Year**
+- **Fire Size**
+- **Cause**
+- **County**
+- **Fire Name**
 
-Given the rising costs of wildfire losses and the increasing burden of wildfire suppression efforts, this analysis aims to deepen our understanding of the role human-based ignitions play in an extended sample of wildfire events in the United States. Specifically, using data on 2.3 million wildfire events in Fire Program Analysis fire-occurrence database (FPA FOD) over the 1992 to 2020 period, we examine how human activities influence the number, size, duration, and seasonality of wildfires, toward determining whether human-driven ignitions continue to be the leading cause of wildfires in the U.S. and in turn helping inform targeted wildfire prevention strategies.
+#### **Key API Endpoints:**
 
-Exluded from this analysis are managed, prescribed burns, which are set intentionally for forest management purposes such as reducing wildfire fuel and controlling invasive species.
+| **Endpoint** | **Description**                               | **Example**                  |
+| ------------ | --------------------------------------------- | ---------------------------- |
+| `/search`    | Retrieve wildfire data with optional filters. | `/search?state=CA&year=2020` |
+| `/years`     | Get a list of available years in the dataset. | `/years`                     |
 
-## Deployment
+---
 
-The Flask API is hosted on **AWS EC2** with the wildfire datset stored in an **S3** bucket. This allows for fast, scalable access without memory issues (which we kept running into)
+### **🔥 Part 2: Interactive Heatmap with Leaflet.js**
 
-### AWS S3 Bucket Configuration
+The front end uses **Leaflet.js** to generate an interactive **wildfire heatmap**. Users can **filter wildfires by year and state** and visualize their distribution on the map.
 
-- Created an **S3 Bucket** (wildfiredatabin) and uploaded the wildfire_data.json file
-- Configfured **Bucket policies** to allow public GET requests
-- Enabled **CORS settings** for external access
+#### **Key Features:**
 
-### EC2 Instance Config
+- **Dropdown filters** for state and year.
+- **Heatmap visualization** with color intensity based on fire size.
+- **Popups displaying fire details** (fire name, acres burned, cause, etc.).
 
-- **Instance type:** Amazon Linux 2
-- **Security group:** Allowed inbound HTTP (port 5000) and SSH (port 22)
-- **Storage:** Standard EBS volume
-- **Public IP assigned** for access
+---
 
-## Setup Flask on EC2
+## **Project Structure**
 
-# Connect to EC2 instance
+```
+/project_3_wildfire_insights
+│── /backend                # Flask API backend
+│   ├── app.py              # Main Flask app entry point
+│   ├── server.py           # API logic
+│   ├── requirements.txt    # Dependencies
+│── /data                   # Local wildfire dataset
+│   ├── USGS2014.json       # Wildfire data in JSON format
+│── /frontend               # Frontend visualization
+│   ├── /static             # Static web assets
+│   │   ├── css/            # Stylesheets
+│   │   ├── js/             # JavaScript files
+│   │   ├── images/         # Image assets
+│   ├── /pages              # Individual HTML pages
+│── /notebooks              # Jupyter Notebooks for data analysis
+│── README.md               # Project documentation
+```
 
-ssh -i "key-cert.pem" ec2-user@the-ec2-public-ip
+---
 
-# Update and install dependencies
+## **How to Run the Project Locally**
 
-sudo yum update -y
-sudo yum install python3 -y
-pip3 install flask flask-cors requests
+### **1️⃣ Setting Up the Flask API**
 
-# Start Flask API
+Ensure you have **Python 3+** installed.
 
-In Linux shell, type in: python3 server.py after pasting server.py code from vscode file into file using nano.
+```bash
+# Clone the repository
+git clone https://github.com/IlirHajdari/project_3_wildfire_insights.git
+cd project_3_wildfire_insights/backend
+
+# Create a virtual environment (optional but recommended)
+python -m venv venv
+source venv/bin/activate  # On Mac/Linux
+venv\Scripts\activate     # On Windows
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Start the Flask API
+python server.py
+```
+
+Once the API is running, it will be available at:
+
+```
+http://127.0.0.1:5000
+```
+
+### **2️⃣ Running the Frontend**
+
+Open the `index.html` file inside `/frontend/pages` in your browser.
+
+If using **VS Code**, install the **Live Server** extension and start the server.
+
+---
+
+## **Tools & Technologies**
+
+- **Flask** → Backend API
+- **JavaScript (D3.js, Leaflet.js)** → Data visualization & mapping
+- **HTML/CSS** → Frontend UI
+- **Pandas & Jupyter Notebooks** → Data analysis
+
+---
+
+## **Contributors**
+
+- **Alison** - Visualization
+- **Brenda** - Visualization
+- **Bridgette** - Frontend
+- **Curtis** - Frontend & Visualization
+- **Ilir** - API Development & Backend Integration
+- **Jim** - Frontend & Visualization
+- **Molly** - Data cleaning & JSON conversion
+- **Omar** - Frontend & Visualization
+- **Rosy** - Frontend & Visualization
+- **Sunil** - Database Creation & Visualization
 
 ## Data
 
