@@ -1,14 +1,25 @@
+// Base URL for fetching data from API
+let baseurl = "http://34.230.87.241:5000/search";
+
 // Initialize charts
 let fireCountChart, fireSizeChart;
 
-// Fetch data from the JSON file
-fetch("USGS2014.json")
+// Fetch data from the API
+fetch(`${baseurl}?year=all`)
     .then(response => response.json())
     .then(data => {
-        console.log("Fire data loaded:", data);
+        console.log("API Response:", data); // Debugging: Check API structure
+
+        // Check where the actual fire records are stored
+        let fireDataArray = data.data || data.results || data.records || data; // Adjust based on API structure
+
+        if (!Array.isArray(fireDataArray)) {
+            console.error("Unexpected API response structure:", data);
+            return;
+        }
 
         // Process fire data for visualization
-        let fireData = processFireData(data);
+        let fireData = processFireData(fireDataArray);
 
         // Initialize charts
         initializeCharts(fireData);
@@ -53,7 +64,7 @@ function updateCharts(selectedYear, fireData) {
     fireCountChart.data.datasets[0].data = monthlyCounts;
     fireCountChart.update();
 
-    // Update Fire Size Chart
+    // Update Fire Size Chart (Converted to Million Acres)
     fireSizeChart.data.datasets[0].data = monthlySizes;
     fireSizeChart.options.scales.y.title.text = "Fire Size (Million Acres)";
     fireSizeChart.update();
