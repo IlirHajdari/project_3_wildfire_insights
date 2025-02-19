@@ -3,8 +3,7 @@ let myMap = L.map("map").setView([37.8, -96.9], 5);
 
 // Adding the tile layer
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(myMap);
 
 // Create dropdown filters
@@ -15,21 +14,19 @@ filters.forEach((filterId) => {
   document.body.insertBefore(selector, document.body.firstChild);
 });
 
-// Load the data
-d3.json("http://127.0.0.1:5000/search").then((data) => {
-  console.log("Raw API Response:", data);
+// Load wildfire data from API
+d3.json("http://127.0.0.1:5000/search").then((response) => {
+  console.log("Raw API Response:", response);
 
   // Ensure data exists
-  if (!data.data || data.data.length === 0) {
+  if (!response.data || response.data.length === 0) {
     console.warn("No wildfire data found!");
     return;
   }
 
-  let wildfireData = data.data; // Extract actual data array
+  let wildfireData = response.data; // Extract actual data array
 
-  let years = [...new Set(wildfireData.map((d) => d.Year))].sort(
-    (a, b) => a - b
-  );
+  let years = [...new Set(wildfireData.map((d) => d.Year))].sort((a, b) => a - b);
   let states = [...new Set(wildfireData.map((d) => d.State))].sort();
 
   function populateDropdown(selectorId, options) {
