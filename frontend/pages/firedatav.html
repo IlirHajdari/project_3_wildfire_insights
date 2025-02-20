@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fire Data Visualization</title>
 
     <!-- Link to CSS -->
-    <link rel="stylesheet" href="firedatav.css">
+    <link rel="stylesheet" href="../static/css/firedatav.css" />
 
     <!-- Include Chart.js for visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Fire Data Visualization</h1>
 
     <!-- Year Selection Dropdown -->
     <label for="yearDropdown">Select Year:</label>
     <select id="yearDropdown">
-        <option value="all">All Years</option>
-        <option value="2014">2014</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
+      <option value="all">All Years</option>
+      <option value="2014">2014</option>
+      <option value="2015">2015</option>
+      <option value="2016">2016</option>
+      <option value="2017">2017</option>
+      <option value="2018">2018</option>
+      <option value="2019">2019</option>
+      <option value="2020">2020</option>
     </select>
 
     <!-- Fire Causes Multi-Bar Chart -->
@@ -39,6 +39,6 @@
     <canvas id="destructiveFiresChart"></canvas>
 
     <!-- Link to JavaScript -->
-    <script src="firedatav.js"></script>
-</body>
+    <script src="../static/js/firedatav.js"></script>
+  </body>
 </html>
