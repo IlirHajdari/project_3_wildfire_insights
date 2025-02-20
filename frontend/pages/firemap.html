@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fire Occurrence Visualization</title>
+
+    <!-- Link to CSS -->
+    <link rel="stylesheet" href="../static/css/firemap.css">
+
+    <!-- Include Chart.js for visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Fire Occurrence Visualization</h1>
+
+    <!-- Year Selection Dropdown -->
+    <label for="yearDropdown">Select Year:</label>
+    <select id="yearDropdown">
+        <option value="all">All Years</option>
+        <option value="2014">2014</option>
+        <option value="2015">2015</option>
+        <option value="2016">2016</option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+    </select>
+
+    <!-- YTD Summary Section -->
+    <h2>Year-to-Date (YTD) Fire Summary</h2>
+    <div class="ytd-container">
+        <div class="ytd-card">
+            <h3>Total Fires</h3>
+            <p id="ytdFireCount">0</p>
+        </div>
+        <div class="ytd-card">
+            <h3>Total Fire Size</h3>
+            <p id="ytdFireSize">0 Million Acres</p>
+        </div>
+    </div>
+
+    <!-- Fire Count Chart -->
+    <h2>Fire Count by Month</h2>
+    <canvas id="fireCountChart"></canvas>
+
+    <!-- Fire Size Chart -->
+    <h2>Total Fire Size by Month</h2>
+    <canvas id="fireSizeChart"></canvas>
+
+    <!-- Link to JavaScript -->
+    <script src="../static/js/firemap.js"></script>
+</body>
+</html>
