@@ -119,7 +119,7 @@ If using **VS Code**, install the **Live Server** extension and start the server
 - **Molly** - Data cleaning & JSON conversion
 - **Omar** - Frontend & Visualization
 - **Rosy** - Frontend & Visualization
-- **Sunil** - Database Creation & Visualization
+- **Sunil** - Database Creation, Index page & Visualization
 
 ## Data
 
