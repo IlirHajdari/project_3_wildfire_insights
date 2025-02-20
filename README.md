@@ -73,16 +73,16 @@ Ensure you have **Python 3+** installed.
 git clone https://github.com/IlirHajdari/project_3_wildfire_insights.git
 cd project_3_wildfire_insights/backend
 
-# Create a virtual environment (optional but recommended)
-python -m venv venv
-source venv/bin/activate  # On Mac/Linux
-venv\Scripts\activate     # On Windows
-
 # Install dependencies
 pip install -r requirements.txt
 
 # Start the Flask API
-python server.py
+
+Using Command Line or Git Bash/Terminal, navigate to the backend folder and type in:
+
+**python server.py**
+
+to run flask locally
 ```
 
 Once the API is running, it will be available at:
@@ -99,9 +99,68 @@ If using **VS Code**, install the **Live Server** extension and start the server
 
 ---
 
+## **🔥 Deploying Flask API on AWS EC2**
+
+To showcase backend deployment skills, the Flask API is hosted on **AWS EC2** with a **public IP**. This setup enables live access to wildfire data.
+
+### **1️⃣ Launching an EC2 Instance**
+
+- **AMI:** Amazon Linux 2
+- **Instance Type:** t2.micro (Free Tier eligible)
+- **Security Group:**
+  - Allow **Inbound Rules**:
+    - SSH (port 22) → **Your IP**
+    - HTTP (port 5000) → **Anywhere**
+- **Key Pair:** Download and store safely to connect via SSH.
+
+### **2️⃣ Connecting to the EC2 Instance**
+
+```bash
+ssh -i /path/to/key.pem ec2-user@your-ec2-public-ip
+```
+
+### **3️⃣ Setting Up Flask on EC2**
+
+```bash
+# Update packages and install dependencies
+sudo yum update -y
+sudo yum install python3 -y
+pip3 install flask flask-cors requests
+```
+
+### **4️⃣ Uploading the Project Files**
+
+Transfer files to EC2 using **scp**:
+
+```bash
+scp -i /path/to/key.pem -r /local/project/directory ec2-user@your-ec2-public-ip:/home/ec2-user/
+```
+
+### **5️⃣ Running the Flask API on EC2**
+
+```bash
+cd /home/ec2-user/project_3_wildfire_insights/backend
+python3 server.py
+```
+
+Now the API is accessible at:
+
+```
+http://your-ec2-public-ip:5000
+```
+
+If you want the Flask app to keep running even after logging out, use:
+
+```bash
+nohup python3 server.py &
+```
+
+---
+
 ## **Tools & Technologies**
 
 - **Flask** → Backend API
+- **AWS EC2** → Live API Hosting
 - **JavaScript (D3.js, Leaflet.js)** → Data visualization & mapping
 - **HTML/CSS** → Frontend UI
 - **Pandas & Jupyter Notebooks** → Data analysis
