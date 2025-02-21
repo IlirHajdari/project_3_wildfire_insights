@@ -76,7 +76,7 @@ The front end uses **Leaflet.js** to generate an interactive **wildfire heatmap*
 
 ### **2️⃣ Running the Frontend**
 
-Open the `index.html` file inside `/frontend/pages` in your browser.
+Open the `index.html` file inside `/frontend/` in your browser.
 
 If using **VS Code**, install the **Live Server** extension and start the server.
 
