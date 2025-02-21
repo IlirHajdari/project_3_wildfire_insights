@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildfire Map</title>
+
+    <!-- Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- D3.js for GeoJSON -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="../static/css/rstyle.css">
+</head>
+<body>
+
+    <h2>Wildfire Map</h2>
+
+    <div id="controls">
+        <label for="yearFilter">Year:</label>
+        <select id="yearFilter">
+            <option value="all">All Years</option>
+        </select>
+
+        <label for="sizeFilter">Fire Size:</label>
+        <select id="sizeFilter">
+            <option value="all">All</option>
+            <option value="small">0 - 9,999 acres</option>
+            <option value="medium">10,000 - 49,999 acres</option>
+            <option value="large">50,000+ acres</option>
+        </select>
+
+        <label for="causeFilter">Cause:</label>
+        <select id="causeFilter">
+            <option value="all">All</option>
+            <option value="Natural">Natural</option>
+            <option value="Human">Human-Caused</option>
+        </select>
+
+        <label for="stateFilter">State:</label>
+        <select id="stateFilter">
+            <option value="all">All States</option>
+        </select>
+
+        <label for="daySlider">Day of Year:</label>
+        <input type="range" id="daySlider" min="1" max="365" value="1">
+        <span id="sliderValue">1</span>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Legend -->
+    <div id="legend">
+        <h3>Fire Cause</h3>
+        <p><span class="legend-box" style="background-color: green;"></span> Natural</p>
+        <p><span class="legend-box" style="background-color: red;"></span> Human-Caused</p>
+    </div>
+
+    <script src="../static/js/Rosyfiremap.js"></script>
+
+</body>
+</html>
