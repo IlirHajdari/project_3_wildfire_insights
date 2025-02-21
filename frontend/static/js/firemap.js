@@ -146,3 +146,5 @@ function initializeCharts(fireData) {
       updateCharts(selectedYear, fireData);
     });
 }
+
+//new update to push code to github
