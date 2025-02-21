@@ -1,228 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Group 4 Fire Data</title>
     <style>
-        body {
-            font-family: Garamond, serif;
-            background-color: #fff5eb;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
+      body {
+        font-family: Garamond, serif;
+        background-color: #fff5eb;
+        margin: 0;
+        padding: 20px;
+        line-height: 1.6;
+      }
 
-        .header {
-            text-align: center;
-            padding: 20px;
-            margin-bottom: 30px;
-            border: 3px solid #b45309;
-            border-radius: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+      .header {
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 30px;
+        border: 3px solid #b45309;
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        .header h1 {
-            margin-bottom: 10px;
-        }
+      .header h1 {
+        margin-bottom: 10px;
+      }
 
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin: 20px 0;
-        }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        margin: 20px 0;
+      }
 
-        .column {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
+      .column {
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
 
-        .column.left {
-            flex: 0.5;
-            min-width: 200px;
-            max-width: 250px;
-        }
+      .column.left {
+        flex: 0.5;
+        min-width: 200px;
+        max-width: 250px;
+      }
 
-        .column.right {
-            flex: 3.5;
-            min-width: 300px;
-        }
+      .column.right {
+        flex: 3.5;
+        min-width: 300px;
+      }
 
-        .team-list {
-            list-style: none;
-            padding: 0;
-        }
+      .team-list {
+        list-style: none;
+        padding: 0;
+      }
 
-        .team-list li {
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
+      .team-list li {
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      }
 
-        .team-list li:last-child {
-            border-bottom: none;
-        }
+      .team-list li:last-child {
+        border-bottom: none;
+      }
 
-        a {
-            color: #b45309;
-            text-decoration: none;
-            border-bottom: 1px dotted #8B4513;
-        }
+      a {
+        color: #b45309;
+        text-decoration: none;
+        border-bottom: 1px dotted #8b4513;
+      }
 
-        a:hover {
-            color: #A0522D;
-            border-bottom: 1px solid #A0522D;
-        }
+      a:hover {
+        color: #a0522d;
+        border-bottom: 1px solid #a0522d;
+      }
 
-        hr {
-            border: none;
-            border-top: 2px solid rgba(139, 69, 19, 0.2);
-            margin: 20px 0;
-        }
+      hr {
+        border: none;
+        border-top: 2px solid rgba(139, 69, 19, 0.2);
+        margin: 20px 0;
+      }
 
-        .footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 30px;
-            font-style: italic;
-            color: rgba(0, 0, 0, 0.7);
-        }
+      .footer {
+        text-align: center;
+        padding: 20px;
+        margin-top: 30px;
+        font-style: italic;
+        color: rgba(0, 0, 0, 0.7);
+      }
 
-        .visualizations {
-            text-align: center;
-            padding: 20px;
-            margin: 20px 0;
-        }
+      .visualizations {
+        text-align: center;
+        padding: 20px;
+        margin: 20px 0;
+      }
 
-        /* New styles for two-column visualization layout */
-        .viz-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
+      /* New styles for two-column visualization layout */
+      .viz-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+      }
 
-        .viz-column {
-            flex: 1;
-            min-width: 300px;
-            max-width: 500px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-radius: 10px;
-        }
+      .viz-column {
+        flex: 1;
+        min-width: 300px;
+        max-width: 500px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h1>Wildfire Tracking through Data Visualization</h1>
-        <h2>Project 3, Group 4</h2>
-        <hr>
+      <h1>Wildfire Tracking through Data Visualization</h1>
+      <h2>Project 3, Group 4</h2>
+      <hr />
     </div>
 
     <div class="row">
-        <div class="column left">
-            <h2>Team Members</h2>
-            <ul class="team-list">
-                <li>Omar Ba Wazir</li>
-                <li>Jim Cruz</li>
-                <li>Alison Driscoll</li>
-                <li>Ilir Hajdari</li>
-                <li>Rosy Mathew</li>
-                <li>Bridgette McCoy</li>
-                <li>Curtis McMullen</li>
-                <li>Molly Pfefferkorn</li>
-                <li>Brenda Priebe</li>
-                <li>Sunil Williams</li>
-            </ul>
-            <hr><br>
-            <h2>README</h2>
+      <div class="column left">
+        <h2>Team Members</h2>
         <ul class="team-list">
-            <li><a href="text" target="_blank" rel="noopener noreferrer">README</a></li>
-        </div>
+          <li>Omar Ba Wazir</li>
+          <li>Jim Cruz</li>
+          <li>Alison Driscoll</li>
+          <li>Ilir Hajdari</li>
+          <li>Rosy Mathew</li>
+          <li>Bridgette McCoy</li>
+          <li>Curtis McMullen</li>
+          <li>Molly Pfefferkorn</li>
+          <li>Brenda Priebe</li>
+          <li>Sunil Williams</li>
+        </ul>
+        <hr />
+        <br />
+      </div>
 
-        <div class="column right">
-            <h2>Overview:</h2>
-            <p>The January 2025 series of wildfires in Southern California has only been recently contained, and the wide-reaching impact of the destruction is still being determined.</p>
-            <p>With that in mind, our group wanted to use our Data Visualization project to examine data tracking wildfires in the United States from 2014-2020. We visualized data on wildfire size, count and location using Plotly and Leaflet, and created an API housing the data using Flask.</p>
-            <p>For this project, we used the <a href="https://catalog.data.gov/dataset/national-interagency-fire-occurrence-sixth-edition-1992-2020-feature-layer">National Interagency Fire Occurrence Sixth Edition 1992-2020 (Feature Layer)</a>, a dataset provided by the US Forest Service, an agency within the US Department of Agriculture and housed on data.gov.</p>
-            
-            <hr>
-            
-            <h2>Ethical Considerations:</h2>
-            <h3>Data Privacy</h3>
-            <p>We have carefully avoided including any identifying information in our data set.All data used in our visualizations comes from the USDA's data source, ensuring accuracy and credibility</p>
-            <h3>Sensitivity and Objectivity</h3>
-            <p>We are acutely aware that wildfires are a sensitive subject, as they have a devastating effect on people, property and wildlife. We sought to visualize the data in an objective, non-sensationalized manner.</p>
-            <h3>Importance of Controlled Burns</h3>
-            <p>We recognise that prescribed, controlled fires are an effective way to reduce wildfire risk, destroy invasive vegetation, and improve habitats. However, our visualizations specifically focus on wildfires, not on controlled burns.</p>
-        </div>
+      <div class="column right">
+        <h2>Overview:</h2>
+        <p>
+          The January 2025 series of wildfires in Southern California has only
+          been recently contained, and the wide-reaching impact of the
+          destruction is still being determined.
+        </p>
+        <p>
+          With that in mind, our group wanted to use our Data Visualization
+          project to examine data tracking wildfires in the United States from
+          2014-2020. We visualized data on wildfire size, count and location
+          using Plotly and Leaflet, and created an API housing the data using
+          Flask.
+        </p>
+        <p>
+          For this project, we used the
+          <a
+            href="https://catalog.data.gov/dataset/national-interagency-fire-occurrence-sixth-edition-1992-2020-feature-layer"
+            >National Interagency Fire Occurrence Sixth Edition 1992-2020
+            (Feature Layer)</a
+          >, a dataset provided by the US Forest Service, an agency within the
+          US Department of Agriculture and housed on data.gov.
+        </p>
+
+        <hr />
+
+        <h2>Ethical Considerations:</h2>
+        <h3>Data Privacy</h3>
+        <p>
+          We have carefully avoided including any identifying information in our
+          data set.All data used in our visualizations comes from the USDA's
+          data source, ensuring accuracy and credibility
+        </p>
+        <h3>Sensitivity and Objectivity</h3>
+        <p>
+          We are acutely aware that wildfires are a sensitive subject, as they
+          have a devastating effect on people, property and wildlife. We sought
+          to visualize the data in an objective, non-sensationalized manner.
+        </p>
+        <h3>Importance of Controlled Burns</h3>
+        <p>
+          We recognise that prescribed, controlled fires are an effective way to
+          reduce wildfire risk, destroy invasive vegetation, and improve
+          habitats. However, our visualizations specifically focus on wildfires,
+          not on controlled burns.
+        </p>
+      </div>
     </div>
 
     <div class="visualizations">
-        <h2>Visualizations:</h2>
-        <div class="viz-container">
-            <div class="viz-column">
-                <style>
-h3 {
-  font-size: 1.17em; /* Default h3 size */
-}
-h3 img {
-  height: 1.17em; /* Match the text height */
-  width: auto;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-</style>
-<style>
-    h3 {
-      font-size: 1.17em; /* Default h3 size */
-    }
-    h3 img {
-      height: 1.17em; /* Match the text height */
-      width: auto;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-    </style>
-                 <h3>
-                    <img src="static/fireicon.png" alt="Fire icon">
-                    <a href="pages/sunilmap.html">Fire Visualizations greater than 1000 acres by Selected State and Year</a>
-                </h3>
-                <h3>
-                    <img src="static/fireicon.png" alt="Fire icon">
-                    <a href="pages/firemap.html">Fire Occurence Visualizations by Selected Year</a>
-                </h3>
-            </div>
-            <div class="viz-column">
-                <h3>
-                    <img src="static/fireicon.png" alt="Fire icon">
-                    <a href="pages/CurtisHeatmap.html">Fire Heat Map of the USA with options to Select by Year and State</a>
-                </h3>
-                <h3>
-                    <img src="static/fireicon.png" alt="Fire icon">
-                    <a href="pages/firedatav.html">Fire Cause and Destruction by Year</a>
-                </h3>
-            </div>
-            <div class="viz-column">
-                <h3>
-                    <img src="static/fireicon.png" alt="Fire icon">
-                    <a href="pages/indexAlison.html">Fire Data Charts by State showing Acres and Number of fires</a>
-                    <h3>
-                        <img src="static/fireicon.png" alt="Fire icon">
-                        <a href="pages/RosyIndex.html">Fire Size, Cause, Year, State - by Day of the Year</a>
-                    </h3>    
-                </h3>
-            </div>
+      <h2>Visualizations:</h2>
+      <div class="viz-container">
+        <div class="viz-column">
+          <style>
+            h3 {
+              font-size: 1.17em; /* Default h3 size */
+            }
+            h3 img {
+              height: 1.17em; /* Match the text height */
+              width: auto;
+              vertical-align: middle;
+              margin-right: 8px;
+            }
+          </style>
+          <style>
+            h3 {
+              font-size: 1.17em; /* Default h3 size */
+            }
+            h3 img {
+              height: 1.17em; /* Match the text height */
+              width: auto;
+              vertical-align: middle;
+              margin-right: 8px;
+            }
+          </style>
+          <h3>
+            <img src="static/fireicon.png" alt="Fire icon" />
+            <a href="pages/sunilmap.html"
+              >Fire Visualizations greater than 1000 acres by Selected State and
+              Year</a
+            >
+          </h3>
+          <h3>
+            <img src="static/fireicon.png" alt="Fire icon" />
+            <a href="pages/firemap.html"
+              >Fire Occurrence Visualizations by Selected Year</a
+            >
+          </h3>
         </div>
+        <div class="viz-column">
+          <h3>
+            <img src="static/fireicon.png" alt="Fire icon" />
+            <a href="pages/CurtisHeatmap.html"
+              >Fire Heat Map of the USA with options to Select by Year and
+              State</a
+            >
+          </h3>
+          <h3>
+            <img src="static/fireicon.png" alt="Fire icon" />
+            <a href="pages/firedatav.html"
+              >Fire Cause and Destruction by Year</a
+            >
+          </h3>
+        </div>
+        <div class="viz-column">
+          <h3>
+            <img src="static/fireicon.png" alt="Fire icon" />
+            <a href="pages/indexAlison.html"
+              >Fire Data Charts by State showing Acres and Number of fires</a
+            >
+            <h3>
+              <img src="static/fireicon.png" alt="Fire icon" />
+              <a href="pages/RosyIndex.html"
+                >Fire Size, Cause, Year, State - by Day of the Year</a
+              >
+            </h3>
+          </h3>
+        </div>
+      </div>
     </div>
 
     <div class="footer">
-        <hr>
-        Copyright &copy; 2025 Data Analytics Boot Camp, Project 3, Group 4
+      <hr />
+      Copyright &copy; 2025 Data Analytics Boot Camp, Project 3, Group 4
     </div>
-</body>
+  </body>
 </html>
