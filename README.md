@@ -62,34 +62,17 @@ The front end uses **Leaflet.js** to generate an interactive **wildfire heatmap*
 
 ---
 
-## **How to Run the Project Locally**
+## **How to Run the Project Locally /VERY IMPORTANT/ **
 
-### **1️⃣ Setting Up the Flask API**
+### **1️⃣ Clone the project files to your local machine **
 
-Ensure you have **Python 3+** installed.
-
-```bash
-# Clone the repository
-git clone https://github.com/IlirHajdari/project_3_wildfire_insights.git
-cd project_3_wildfire_insights/backend
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Start the Flask API
-
-Using Command Line or Git Bash/Terminal, navigate to the backend folder and type in:
-
-**python server.py**
-
-to run flask locally
-```
-
-Once the API is running, it will be available at:
-
-```
-http://127.0.0.1:5000
-```
+- Once copied, open you file explorer on your pc
+- Navigate to the project directory(folder) and then to frontend/pages
+- Here, you will see the zipped json folder
+- Extract that into the pages directory
+- Once extracted, you will see that a new folder has been created
+- open the folder, copy the json file that is inside of the folder, then navigate back out to the pages directory
+- paste the json file in the pages directory and then delete the folder containing the json file that was created when initially unzipping the json
 
 ### **2️⃣ Running the Frontend**
 
@@ -149,11 +132,9 @@ Now the API is accessible at:
 http://your-ec2-public-ip:5000
 ```
 
-If you want the Flask app to keep running even after logging out, use:
+## The above will only work if you have access to an EC2 instance on AWS.
 
-```bash
-nohup python3 server.py &
-```
+## Other than that, this section was to show that the team has the ability to host the data via a live server
 
 ---
 
@@ -170,7 +151,7 @@ nohup python3 server.py &
 ## **Contributors**
 
 - **Alison** - Visualization
-- **Brenda** - Visualization
+- **Brenda** -
 - **Bridgette** - Frontend
 - **Curtis** - Frontend & Visualization
 - **Ilir** - API Development & Backend Integration
@@ -178,7 +159,7 @@ nohup python3 server.py &
 - **Molly** - Data cleaning & JSON conversion
 - **Omar** - Frontend & Visualization
 - **Rosy** - Frontend & Visualization
-- **Sunil** - Database Creation & Visualization
+- **Sunil** - Database Creation, Visualizations, & Grand Webmaster
 
 ## Data
 
